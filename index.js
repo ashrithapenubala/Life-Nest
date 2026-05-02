@@ -149,8 +149,9 @@ app.get("/donate", async (req, res) => {
   try {
     const result = await pool.query("SELECT name, blood_group FROM blood_donors ORDER BY name ASC");
     res.render("donate.ejs", { donors: result.rows });
-  } catch {
-    res.status(500).send("Error fetching donors");
+  } catch (err) {
+    console.error("DONATE ERROR:", err);
+    res.status(500).send("Error: " + err.message);
   }
 });
 
@@ -162,7 +163,6 @@ app.post("/donate/blood/form", async (req, res) => {
       "INSERT INTO blood_donors (name, email, dob, blood_group, phone, address) VALUES ($1,$2,$3,$4,$5,$6)",
       [name, email, dob, bloodGroup, phone, address]
     );
-
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
@@ -170,8 +170,9 @@ app.post("/donate/blood/form", async (req, res) => {
       text: `Dear ${name},\nThank you for registering to donate blood with LifeNest.\n\nTeam LifeNest ❤️`,
     });
     res.render("donateSuccess.ejs", { name, email });
-  } catch {
-    res.status(500).send("Error saving donor info");
+  } catch (err) {
+    console.error("DONATE FORM ERROR:", err);
+    res.status(500).send("Error saving donor info: " + err.message);
   }
 });
 
@@ -191,11 +192,10 @@ app.post("/donate/receive", async (req, res) => {
       subject: "LifeNest Blood Request Received",
       text: `Dear ${name},\nYour blood request (${bloodGroup}) has been received.\nStatus: ${available}\n\nTeam LifeNest ❤️`,
     });
-
     res.render("receiveSuccess.ejs", { name, available });
   } catch (err) {
     console.error("Error saving blood receiver:", err);
-    res.status(500).send("Error processing blood request");
+    res.status(500).send("Error processing blood request: " + err.message);
   }
 });
 
@@ -216,7 +216,6 @@ app.post("/donate/organ/form", async (req, res) => {
        VALUES ($1,$2,$3,$4,$5,$6,$7)`,
       [name, email, dob, organ, phone, address, nearbyHospital]
     );
-
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
@@ -226,7 +225,7 @@ app.post("/donate/organ/form", async (req, res) => {
     res.render("donateOrganSuccess.ejs", { name, email });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error saving organ donor");
+    res.status(500).send("Error saving organ donor: " + err.message);
   }
 });
 
@@ -238,7 +237,7 @@ app.get("/donate/organ/receive", async (req, res) => {
     res.render("organReceive.ejs", { donors: result.rows });
   } catch (err) {
     console.error("Error loading organ donors:", err);
-    res.status(500).send("Error loading organ donors");
+    res.status(500).send("Error loading organ donors: " + err.message);
   }
 });
 
@@ -250,18 +249,16 @@ app.post("/donate/organ/receive", async (req, res) => {
        VALUES ($1,$2,$3,$4,$5,$6)`,
       [name, email, phone, address, organNeeded, nearbyHospital]
     );
-
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
       subject: "LifeNest Organ Receiver Confirmation",
-      text: `Dear ${name},\nThank you for registering to receive an organ (${organNeeded}) with LifeNest.\nWe’ll reach out when a suitable donor is available.\n\nTeam LifeNest ❤️`,
+      text: `Dear ${name},\nThank you for registering to receive an organ (${organNeeded}) with LifeNest.\nWe'll reach out when a suitable donor is available.\n\nTeam LifeNest ❤️`,
     });
-
     res.render("organReceiveSuccess.ejs", { name, email });
   } catch (err) {
     console.error("Error saving organ receiver:", err);
-    res.status(500).send("Error saving organ receiver");
+    res.status(500).send("Error saving organ receiver: " + err.message);
   }
 });
 
@@ -275,7 +272,7 @@ app.get("/donate/organ/hospitals", async (req, res) => {
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching hospitals:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -287,31 +284,28 @@ app.get("/donate/receive", async (req, res) => {
     res.render("receiveBlood.ejs", { donors: result.rows });
   } catch (err) {
     console.error("Error loading donors:", err);
-    res.status(500).send("Error loading blood donors");
+    res.status(500).send("Error loading blood donors: " + err.message);
   }
 });
 
 app.get("/queriesblood", (req, res) => res.render("queriesblood.ejs"));
 app.post("/queriesblood", async (req, res) => {
   const { name, email, query } = req.body;
-
   try {
     await pool.query(
       "INSERT INTO queries (name, email, query) VALUES ($1, $2, $3)",
       [name, email, query]
     );
-
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
       subject: "LifeNest Query Received",
-      text: `Dear ${name},\n\nThank you for reaching out to LifeNest.\nWe’ve received your query and will get back to you soon.\n\nBlessings,\nTeam LifeNest ❤️`,
+      text: `Dear ${name},\n\nThank you for reaching out to LifeNest.\nWe've received your query and will get back to you soon.\n\nBlessings,\nTeam LifeNest ❤️`,
     });
-
     res.render("queriesSuccess.ejs", { name, email });
   } catch (err) {
     console.error("Error handling query:", err);
-    res.status(500).send("Error submitting query");
+    res.status(500).send("Error submitting query: " + err.message);
   }
 });
 
@@ -323,11 +317,7 @@ app.get("/api/types", async (req, res) => {
     const organQry = await pool.query(
       "SELECT COALESCE(organ, 'Unknown') AS type, COUNT(*)::int AS total FROM organ_donors GROUP BY organ ORDER BY total DESC"
     );
-
-    res.json({
-      bloodTypes: bloodQry.rows,
-      organTypes: organQry.rows,
-    });
+    res.json({ bloodTypes: bloodQry.rows, organTypes: organQry.rows });
   } catch (err) {
     console.error("Error /api/types:", err);
     res.json({
@@ -442,23 +432,17 @@ app.post("/feedback", async (req, res) => {
       subject: `Feedback from ${name}`,
       text: `Category: ${category}\nRating: ${rating}\nMessage: ${message}`,
     });
-
-    const lowRating = Number(rating) <= 3; // 👈 define lowRating
-    res.render("feedbackSuccess.ejs", { name, lowRating }); // 👈 send it to EJS
-  } catch {
-    res.status(500).send("Error submitting feedback");
+    const lowRating = Number(rating) <= 3;
+    res.render("feedbackSuccess.ejs", { name, lowRating });
+  } catch (err) {
+    console.error("Feedback error:", err);
+    res.status(500).send("Error submitting feedback: " + err.message);
   }
 });
 
-
-// ✅ Added feedback success route
 app.get("/feedbackSuccess", (req, res) => res.render("feedbackSuccess.ejs"));
-
 app.get("/about", (req, res) => res.render("about.ejs"));
-app.get("/contact", (req, res) => {
-  res.render("contact.ejs");
-});
-
+app.get("/contact", (req, res) => res.render("contact.ejs"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
