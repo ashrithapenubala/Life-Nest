@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback - LifeNest</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    .feedback-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: linear-gradient(145deg,#f0f8ff,#ffffff);
+      padding: 35px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+    }
+
+    .feedback-container h1 {
+      color: #265da2;
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+    }
+
+    .feedback-container p {
+      color: #497ac8;
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #3674B5;
+      font-size: 1.2rem;
+    }
+
+    .feedback-form input,
+    .feedback-form select,
+    .feedback-form textarea {
+      width: 100%;
+      padding: 12px 15px 12px 38px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .feedback-form input:focus,
+    .feedback-form select:focus,
+    .feedback-form textarea:focus {
+      outline: none;
+      border-color: #4A8BEA;
+      box-shadow: 0 0 8px rgba(74,139,234,0.3);
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin: 10px 0 15px 0;
+      cursor: pointer;
+    }
+    .stars input { display: none; }
+    .stars label {
+      font-size: 2rem;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #e74c3c;
+    }
+
+    .feedback-form button.btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg,#3674B5,#4A8BEA);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+    .feedback-form button.btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(54,116,181,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="feedback-container">
+    <h1>We Value Your Feedback ❤️</h1>
+    <p>Help us improve LifeNest by sharing your thoughts.</p>
+    <form action="/feedback" method="POST" class="feedback-form">
+
+      <div class="input-group">
+        <i class='bx bx-user'></i>
+        <input type="text" name="name" placeholder="Your Name" required>
+      </div>
+
+      <div class="input-group">
+        <i class='bx bx-envelope'></i>
+        <input type="email" name="email" placeholder="Your Email" required>
+      </div>
+
+      <div class="input-group">
+        <i class='bx bx-category'></i>
+        <select name="category" required>
+          <option value="">Select Category</option>
+          <option value="Website Usability">Website Usability</option>
+          <option value="Donation Process">Donation Process</option>
+          <option value="Information Clarity">Information Clarity</option>
+          <option value="Communication/Support">Communication/Support</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="stars">
+        <input type="radio" name="rating" id="star5" value="5"><label for="star5">&#9733;</label>
+        <input type="radio" name="rating" id="star4" value="4"><label for="star4">&#9733;</label>
+        <input type="radio" name="rating" id="star3" value="3"><label for="star3">&#9733;</label>
+        <input type="radio" name="rating" id="star2" value="2"><label for="star2">&#9733;</label>
+        <input type="radio" name="rating" id="star1" value="1"><label for="star1">&#9733;</label>
+      </div>
+
+      <div class="input-group">
+        <i class='bx bx-comment-detail'></i>
+        <textarea name="message" placeholder="Your Suggestions / Comments" rows="5" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Submit Feedback</button>
+    </form>
+  </div>
+</body>
+</html>

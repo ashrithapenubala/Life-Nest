@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up - LifeNest</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .signup-wrapper {
+      max-width: 920px;
+      margin: 56px auto;
+      display:flex;
+      gap:36px;
+      align-items:center;
+      padding:28px;
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 10px 30px rgba(54,116,181,0.06);
+    }
+    .signup-left { flex:0 0 140px; text-align:center; }
+    .signup-left .logo { width:96px; height:96px; border-radius:12px; object-fit:cover; margin:0 auto 8px; }
+    .signup-left h2 { color:#3674B5; font-size:1rem; margin:0; }
+
+    .signup-right { flex:1; }
+    .signup-card { max-width:560px; margin:0 auto; }
+
+    .form-heading { color:#3674B5; font-size:1.35rem; margin-bottom:12px; font-weight:700; }
+    .form-field { width:100%; padding:10px 12px; margin-bottom:12px; border-radius:8px; border:1px solid #ddd; font-size:1rem; }
+    .submit-btn { background:#3674B5; color:#fff; padding:10px 14px; border-radius:8px; border:none; width:100%; font-weight:700; cursor:pointer; }
+
+    .meta-links { margin-top:12px; text-align:center; color:#666; font-size:0.95rem; }
+    .meta-links a { color:#3674B5; text-decoration:none; font-weight:600; }
+
+    @media (max-width:800px) {
+      .signup-wrapper { flex-direction:column; padding:18px; }
+      .signup-left { display:flex; flex-direction:row; gap:12px; align-items:center; justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-wrapper">
+    <div class="signup-left">
+      <img src="/assests/logo.png" alt="LifeNest Logo" class="logo" />
+      <h2>LifeNest</h2>
+    </div>
+
+    <div class="signup-right">
+      <div class="signup-card">
+        <div class="form-heading">Sign Up for LifeNest</div>
+        <form action="/signup" method="POST" novalidate>
+          <input class="form-field" name="name" type="text" placeholder="Full name" required />
+          <input class="form-field" name="email" type="email" placeholder="Email address" required />
+          <input class="form-field" name="password" type="password" placeholder="Create a password" required />
+          <button class="submit-btn" type="submit">Sign Up</button>
+        </form>
+        <div class="meta-links">
+          Already registered? <a href="/login">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

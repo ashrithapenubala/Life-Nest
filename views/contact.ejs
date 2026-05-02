@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Hospitals - LifeNest</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e8f1f9, #ffffff);
+      margin: 0;
+      padding: 0;
+      color: #2a4d69;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+      background: linear-gradient(135deg, #4a90e2, #6fa8dc);
+      color: #fff;
+      border-bottom-left-radius: 100px;
+      border-bottom-right-radius: 100px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-size: 2.6rem;
+      margin: 0;
+      font-weight: 700;
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header h2 {
+      margin-top: 10px;
+      font-weight: 400;
+      color: #eef4fc;
+      font-size: 1.2rem;
+    }
+
+    /* Hospital Grid */
+    .hospital-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 25px;
+    }
+
+    /* Hospital Card */
+    .hospital-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+
+    .hospital-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    }
+
+    .hospital-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid #e0e8f1;
+      transition: transform 0.4s ease;
+    }
+
+    .hospital-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .hospital-content {
+      padding: 22px;
+      text-align: center;
+    }
+
+    .hospital-content a {
+      display: inline-block;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #2a4d69;
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .hospital-content a:hover {
+      color: #1e3a52;
+      transform: scale(1.05);
+    }
+
+    .hospital-content p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 12px 0 18px;
+      line-height: 1.5;
+    }
+
+    .hospital-content button {
+      background: linear-gradient(135deg, #4a90e2, #2a4d69);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .hospital-content button:hover {
+      background: linear-gradient(135deg, #2a4d69, #3573b1);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 0;
+      background: #f4f8fb;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #d9e4ee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Top Multispeciality Hospitals in Andhra Pradesh</h1>
+    <h2>LifeNest partners with these hospitals to save lives</h2>
+  </header>
+
+  <div class="hospital-grid">
+    <div class="hospital-card">
+      <img src="assests/apollo.jpg" alt="Apollo Hospitals">
+      <div class="hospital-content">
+        <a href="https://www.apollohospitals.com/" target="_blank">Apollo Hospitals, Vijayawada</a>
+        <p>World-class healthcare with modern technology and trusted expertise.</p>
+        <button onclick="window.open('https://www.apollohospitals.com/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/kims.avif" alt="KIMS Hospitals">
+      <div class="hospital-content">
+        <a href="https://kimshealthcare.com/" target="_blank">KIMS Hospitals, Visakhapatnam</a>
+        <p>Multispeciality excellence with compassionate medical care.</p>
+        <button onclick="window.open('https://kimshealthcare.com/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/nri.jpg" alt="NRI Hospitals">
+      <div class="hospital-content">
+        <a href="https://www.nrihospitals.com/" target="_blank">NRI Hospitals, Guntur</a>
+        <p>Delivering advanced healthcare through innovation and empathy.</p>
+        <button onclick="window.open('https://www.nrihospitals.com/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/aster.jpg" alt="Aster Ramesh Hospitals">
+      <div class="hospital-content">
+        <a href="https://www.asterhospitals.in/hospitals/aster-ramesh-guntur" target="_blank">Aster Ramesh Hospitals, Guntur</a>
+        <p>Leading in cardiac, neuro, and transplant care with world-class precision.</p>
+        <button onclick="window.open('https://www.asterhospitals.in/hospitals/aster-ramesh-guntur', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/aiims.jpg" alt="AIIMS Mangalagiri">
+      <div class="hospital-content">
+        <a href="https://aiimsmangalagiri.edu.in/" target="_blank">AIIMS Mangalagiri</a>
+        <p>Dedicated to quality education, research, and comprehensive patient care.</p>
+        <button onclick="window.open('https://aiimsmangalagiri.edu.in/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/svims.jpg" alt="SVIMS Tirupati">
+      <div class="hospital-content">
+        <a href="https://www.svims.edu.in/" target="_blank">SVIMS Tirupati</a>
+        <p>Super-specialty university hospital with modern diagnostics and expertise.</p>
+        <button onclick="window.open('https://www.svims.edu.in/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/sri sathya.jpg" alt="Sri Sathya Sai Institute of Higher Medical Sciences">
+      <div class="hospital-content">
+        <a href="https://www.sssihms.org.in/" target="_blank">Sri Sathya Sai Institute, Puttaparthi</a>
+        <p>Delivering world-class healthcare completely free of cost with love.</p>
+        <button onclick="window.open('https://www.sssihms.org.in/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/queens.jpg" alt="Queen’s NRI Hospital">
+      <div class="hospital-content">
+        <a href="https://queensnrihospitals.com/" target="_blank">Queen’s NRI Hospital, Visakhapatnam</a>
+        <p>Comprehensive healthcare with patient-first philosophy and care.</p>
+        <button onclick="window.open('https://queensnrihospitals.com/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/trinity.jpg" alt="Trinity Hospital">
+      <div class="hospital-content">
+        <a href="https://www.trinityhospitals.in/" target="_blank">Trinity Hospital, Kakinada</a>
+        <p>Delivering quality treatment with warmth and personalized attention.</p>
+        <button onclick="window.open('https://www.trinityhospitals.in/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+
+    <div class="hospital-card">
+      <img src="assests/amara.jpg" alt="Amara Hospital">
+      <div class="hospital-content">
+        <a href="https://amarahospital.com/" target="_blank">Amara Hospital, Tirupati</a>
+        <p>Advanced facilities and exceptional patient-focused care.</p>
+        <button onclick="window.open('https://amarahospital.com/', '_blank')">Visit Website</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2025 LifeNest — Together, we save lives ❤️</footer>
+</body>
+</html>

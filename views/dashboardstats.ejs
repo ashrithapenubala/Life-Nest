@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LifeNest Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #0f1c2f;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  h1 { color: #4fc3f7; margin-bottom: 5px; font-size: 2em; }
+  p.subtitle { color: #90caf9; margin-bottom: 30px; font-size: 1.2em; }
+
+  canvas {
+    background: #1b2a4b;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    margin: 20px auto;
+  }
+
+  .pie-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .moderate-chart {
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  .big-chart {
+    width: 90%;
+    max-width: 600px;
+    height: 280px;
+    margin: 0 auto 40px;
+  }
+
+  h3 {
+    color: #ffb74d;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .moderate-chart { width: 200px !important; height: 200px !important; }
+    .pie-container { gap: 20px; }
+    .big-chart { max-width: 350px; height: 220px; }
+  }
+</style>
+</head>
+<body>
+  <h1><i class="fas fa-tint"></i> LifeNest Dashboard</h1>
+  <p class="subtitle"><i class="fas fa-chart-line"></i> Track daily blood & organ donations</p>
+
+  <div class="pie-container">
+    <div>
+      <h3><i class="fas fa-heartbeat"></i> Blood Types</h3>
+      <canvas id="bloodPie" class="moderate-chart"></canvas>
+    </div>
+    <div>
+      <h3><i class="fas fa-hand-holding-medical"></i> Organ Types</h3>
+      <canvas id="organPie" class="moderate-chart"></canvas>
+    </div>
+  </div>
+
+  <canvas id="donationChart" class="big-chart"></canvas>
+
+  <script>
+  async function fetchCharts() {
+    // BAR CHART
+    const statsRes = await fetch('/api/stats');
+    const statsData = await statsRes.json();
+
+    const formatDate = iso => new Date(iso).toLocaleDateString('en-GB');
+
+    const labels = [...new Set([
+      ...statsData.bloodStats.map(d => formatDate(d.donated_at)),
+      ...statsData.organStats.map(d => formatDate(d.donated_at))
+    ])].sort();
+
+    const bloodMap = Object.fromEntries(statsData.bloodStats.map(d => [formatDate(d.donated_at), parseInt(d.count)]));
+    const organMap = Object.fromEntries(statsData.organStats.map(d => [formatDate(d.donated_at), parseInt(d.count)]));
+
+    const bloodData = labels.map(d => bloodMap[d] || 0);
+    const organData = labels.map(d => organMap[d] || 0);
+
+    new Chart(document.getElementById('donationChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            type: 'line',
+            label: 'Blood Donations',
+            data: bloodData,
+            borderColor: '#4fc3f7',
+            backgroundColor: 'rgba(79,195,247,0.1)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          },
+          {
+            type: 'line',
+            label: 'Organ Donations',
+            data: organData,
+            borderColor: '#ffb74d',
+            backgroundColor: 'rgba(255,183,77,0.1)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          },
+          {
+            type: 'bar',
+            label: 'Total Donations',
+            data: labels.map((_, i) => bloodData[i] + organData[i]),
+            backgroundColor: 'rgba(255,255,255,0.2)'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top', labels: { color: '#fff' } } },
+        scales: {
+          x: { title: { display: true, text: 'Date', color: '#fff' }, ticks: { color: '#fff' } },
+          y: { title: { display: true, text: 'Number of Donations', color: '#fff' }, ticks: { color: '#fff' }, beginAtZero: true }
+        },
+        animation: { duration: 1000, easing: 'easeOutQuart' }
+      }
+    });
+
+    // PIE CHARTS
+    const typeRes = await fetch('/api/types');
+    const typeData = await typeRes.json();
+
+    const bloodLabels = typeData.bloodTypes.map(d => d.type);
+    const bloodValues = typeData.bloodTypes.map(d => parseInt(d.total));
+    const organLabels = typeData.organTypes.map(d => d.type);
+    const organValues = typeData.organTypes.map(d => parseInt(d.total));
+
+    new Chart(document.getElementById('bloodPie').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: bloodLabels,
+        datasets: [{ 
+          data: bloodValues, 
+          backgroundColor: ['#4fc3f7','#81d4fa','#29b6f6','#0288d1','#b3e5fc','#01579b'] 
+        }]
+      },
+      options: { responsive: false, plugins: { legend: { labels: { color: '#fff' } } } }
+    });
+
+    new Chart(document.getElementById('organPie').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: organLabels,
+        datasets: [{ 
+          data: organValues, 
+          backgroundColor: ['#ffb74d','#ffa726','#ff8f00','#f57c00','#ffe0b2','#ff6f00'] 
+        }]
+      },
+      options: { responsive: false, plugins: { legend: { labels: { color: '#fff' } } } }
+    });
+  }
+  fetchCharts();
+  </script>
+</body>
+</html>

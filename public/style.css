@@ -1,0 +1,247 @@
+/* ----------------- Base ----------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #cde9ff, #e6faff, #ffffff);
+  color: #0b4b91;
+  overflow-x: hidden;
+}
+
+/* ----------------- Navbar ----------------- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+}
+
+/* 🌿 Desktop Navbar */
+.nav-center {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-center a {
+  text-decoration: none;
+  color: #0b4b91;
+  font-weight: 500;
+  font-size: 1.05rem;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-center a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #0077ff;
+  transition: 0.3s;
+}
+
+.nav-center a:hover::after,
+.nav-center a.active::after {
+  width: 100%;
+}
+
+.nav-center a:hover { color: #0077ff; }
+.nav-center a.active { color: #004aad; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-right .signin,
+.nav-right .signup {
+  text-decoration: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-right .signin { background: #0077ff; }
+.nav-right .signup { background: #00b4d8; }
+
+.nav-right .signin:hover,
+.nav-right .signup:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* 🌿 Mobile Menu */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: #004aad;
+  cursor: pointer;
+}
+
+.menu-toggle.open i {
+  transform: rotate(90deg);
+  transition: 0.3s;
+}
+
+/* ----------------- Hero ----------------- */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 60px;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #eaf7ff, #f8fdff);
+}
+
+.hero-left {
+  width: 45%;
+}
+
+.hero-left h2 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  color: #004aad;
+}
+
+.hero-left p {
+  font-size: 1.4rem;
+  color: #0b4b91;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+/* 🎯 Donate Buttons */
+.hero-buttons .btn {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.hero-buttons .btn i {
+  font-size: 1.3rem;
+  margin-right: 8px;
+}
+
+.hero-buttons .blood {
+  background: #ff4b5c;
+  color: white;
+}
+
+.hero-buttons .organ {
+  background: #00b4d8;
+  color: white;
+}
+
+.hero-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+}
+
+.hero-right img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ----------------- Footer ----------------- */
+.footer {
+  background: #004aad;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1rem;
+  margin-top: 50px;
+}
+
+.footer .heart {
+  color: #ff4b5c;
+}
+
+/* ----------------- Responsive ----------------- */
+@media (max-width: 900px) {
+  nav {
+    padding: 15px 25px;
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-center {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: white;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+
+  .nav-center.active {
+    display: flex;
+    padding: 15px 0;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-left, .hero-right { width: 100%; }
+  .hero-buttons { 
+    justify-content: center; 
+    flex-direction: column; 
+    gap: 15px; 
+  }
+  .hero-left h2 { font-size: 2.5rem; }
+}

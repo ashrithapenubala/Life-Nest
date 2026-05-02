@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - LifeNest</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .login-wrapper {
+      max-width: 920px;
+      margin: 56px auto;
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      padding: 28px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(54,116,181,0.06);
+    }
+    .login-left { flex: 0 0 140px; text-align: center; }
+    .login-left .logo { width: 96px; height: 96px; border-radius: 12px; object-fit: cover; margin: 0 auto 8px; }
+    .login-left h2 { color: #3674B5; font-size: 1rem; margin: 0; }
+
+    .login-right { flex: 1; }
+    .login-card { max-width: 560px; margin: 0 auto; }
+
+    .form-heading { color: #3674B5; font-size: 1.35rem; margin-bottom: 12px; font-weight: 700; }
+
+    .auth-btn {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 10px 14px; border-radius: 8px; border: 1px solid #ddd; background: #fff;
+      text-decoration: none; color: #222; font-weight: 700; cursor: pointer;
+    }
+    .auth-btn:hover { box-shadow: 0 8px 26px rgba(0,0,0,0.06); }
+
+    .google-icon { width: 28px; height: 28px; flex-shrink: 0; display: inline-block; }
+
+    .or-sep { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+      .or-sep .line { flex: 1; height: 1px; background: #eee; }
+      .or-sep .or-text { color: #888; font-size: 0.95rem; }
+
+    .form-field { width: 100%; padding: 10px 12px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; }
+    .submit-btn { background: #3674B5; color: #fff; padding: 10px 14px; border-radius: 8px; border: none; width: 100%; font-weight: 700; cursor: pointer; }
+
+    .meta-links { margin-top: 12px; text-align: center; color: #666; font-size: 0.95rem; }
+    .meta-links a { color: #3674B5; text-decoration: none; font-weight: 600; }
+
+    @media (max-width:800px) {
+      .login-wrapper { flex-direction: column; padding: 18px; }
+      .login-left { display: flex; flex-direction: row; gap: 12px; align-items: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrapper">
+    <!-- left: logo + name -->
+    <div class="login-left">
+      <img src="/assests/logo.png" alt="LifeNest Logo" class="logo">
+      <h2>LifeNest</h2>
+    </div>
+
+    <!-- right: card with google + form -->
+    <div class="login-right">
+      <div class="login-card">
+        <div class="form-heading">Login to your LifeNest account</div>
+
+        <!-- Google OAuth button -->
+        <a href="/auth/google" class="auth-btn" title="Login with Google">
+          <span class="google-icon" aria-hidden="true">
+            <svg viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <path fill="#4285f4" d="M533.5 278.4c0-17.7-1.6-35.3-4.8-52.2H272v98.7h147.3c-6.4 34.7-26.1 64.2-55.9 83.9v69.8h90.3c52.9-48.7 83.8-120.4 83.8-200.2z"/>
+              <path fill="#34a853" d="M272 544.3c74.6 0 137.4-24.7 183.2-67.4l-90.3-69.8c-25 17.1-56.7 27.2-92.9 27.2-71.5 0-132.2-48.1-154-112.8H26.1v70.9C70.5 486.4 165.9 544.3 272 544.3z"/>
+              <path fill="#fbbc04" d="M118 323.5c-8.4-25.2-8.4-52.6 0-77.8V174.8H26.1C-6.4 233.6-6.4 310.7 26.1 369.5l91.9-46z"/>
+              <path fill="#ea4335" d="M272 108.7c39.6 0 75.3 13.6 103.4 40.4l77.6-77.6C410.4 25 349.9 0 272 0 165.9 0 70.5 57.9 26.1 146.9l91.9 69.8C139.8 157 200.5 108.7 272 108.7z"/>
+            </svg>
+          </span>
+          <span>Login with Google</span>
+        </a>
+
+        <!-- OR separator -->
+        <div class="or-sep" aria-hidden="true">
+          <div class="line"></div>
+          <div class="or-text">or</div>
+          <div class="line"></div>
+        </div>
+
+        <!-- Regular login form -->
+        <form action="/login" method="POST" novalidate>
+          <input class="form-field" name="email" type="email" placeholder="Email address" required>
+          <input class="form-field" name="password" type="password" placeholder="Password" required>
+          <button class="submit-btn" type="submit">Login</button>
+        </form>
+
+        <div class="meta-links">
+          Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - LifeNest</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
+      overflow: hidden;
+    }
+
+    .feedback-success {
+      background: linear-gradient(145deg, #ffffff, #d0e4ff);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .feedback-success h1 {
+      font-size: 2.2rem;
+      color: #265da2;
+      margin-bottom: 15px;
+      animation: bounce 1s ease;
+    }
+
+    .feedback-success p {
+      font-size: 1.1rem;
+      color: #497ac8;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .feedback-success .btn {
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3674B5, #4A8BEA);
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .feedback-success .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(54,116,181,0.3);
+    }
+
+    /* Simple confetti effect */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #e74c3c;
+      top: -10px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fall {
+      0% { top: -10px; transform: rotate(0deg); }
+      100% { top: 100%; transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="feedback-success">
+    <h1><i class='bx bx-star'></i> Thank You, <%= name %>! 🌟</h1>
+    <% if (lowRating) { %>
+      <p>We noticed your rating was low. We’ll work hard to improve! 💪</p>
+    <% } else { %>
+      <p>Your feedback helps us save more lives. We truly appreciate your support. 💖</p>
+    <% } %>
+    <a href="/" class="btn"><i class='bx bx-home'></i> Back to Home</a>
+    <!-- Simple confetti pieces -->
+    <div class="confetti" style="left:10%; background:#e74c3c;"></div>
+    <div class="confetti" style="left:30%; background:#4A8BEA;"></div>
+    <div class="confetti" style="left:50%; background:#3674B5;"></div>
+    <div class="confetti" style="left:70%; background:#f1c40f;"></div>
+    <div class="confetti" style="left:90%; background:#2ecc71;"></div>
+  </div>
+</body>
+</html>
