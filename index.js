@@ -66,7 +66,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ----------------- DATABASE -----------------
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  ssl: false
 });
 pool.on("error", (err) => console.error("Unexpected DB error:", err));
 
